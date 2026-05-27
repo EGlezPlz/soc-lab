@@ -1,0 +1,36 @@
+sources:
+  - name: INCIBE-CERT
+    adapter: incibe
+    url: https://www.incibe.es/incibe-cert/alerta-temprana/avisos
+    tlp: WHITE
+    tags: [advisory, incibe, spain]
+    max_items: 5
+    timeout: 15
+
+  - name: CISA-KEV
+    adapter: cisa_kev
+    url: https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json
+    tlp: WHITE
+    tags: [kev, cisa, usa, explotacion-activa]
+    dias_recientes: 30
+    modo_completo: false
+    timeout: 20
+
+fetch:
+  delay_between_requests: 2.0
+  max_retries: 2
+  timeout: 15
+
+output:
+  json:
+    enabled: true
+    path: ./data/
+  misp:
+    enabled: false
+    url: https://localhost
+    key: TU_API_KEY_AQUI
+    verify_ssl: false
+
+scheduler:
+  interval_minutes: 60
+  dedup_store: ./data/.dedup_hashes.json

@@ -1,0 +1,32 @@
+# soc_coverage/config.yaml
+
+# Directorio de datos de CyberScraper
+cyberscraper_data_dir: ./cyberscraper/data
+
+# Wazuh
+wazuh:
+  wazuh_enabled:      true
+  wazuh_url:          https://localhost:55000
+  wazuh_user:         wazuh-wui
+  wazuh_password:     SecretPassword
+  wazuh_rules_dir:    /var/ossec/ruleset/rules
+
+# Suricata
+suricata:
+  suricata_enabled:   true
+  suricata_rules_dir: /etc/suricata/rules
+
+# MISP
+misp:
+  misp_enabled:       true
+  misp_url:           https://localhost
+  misp_key:           0p8ZiOqX5CWsaGuuijHtkIORc0qQAdGWH0QviKIo
+
+# Salidas
+output_dir: ./data
+
+output_json:
+  enabled: true
+
+output_html:
+  enabled: true
