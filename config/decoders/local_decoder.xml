@@ -1,0 +1,69 @@
+<!-- DECODERS SUDO --> 
+
+<decoder name="sudo-lab"> 
+
+<program_name>sudo</program_name> 
+
+<prematch>^\s+\S+ : </prematch> 
+
+</decoder> 
+
+ 
+
+ 
+
+<decoder name="sudo-lab-command"> 
+
+<parent>sudo-lab</parent> 
+
+<regex>^\s+(\S+) : TTY=\S+ ; PWD=(\S+) ; USER=(\S+) ; COMMAND=(\S+)</regex> 
+
+<order>srcuser, cwd, dstuser, command</order> 
+
+</decoder> 
+
+ 
+
+ 
+
+<decoder name="sudo-lab-failed"> 
+
+<parent>sudo-lab</parent> 
+
+<prematch>authentication failure</prematch> 
+
+<regex>user=(\S+)</regex> 
+
+<order>srcuser</order> 
+
+</decoder> 
+
+ 
+
+ 
+
+<!-- DECODERS NGINX --> 
+
+<!-- Nota: usar [0-9.] no \d, y [^ ] no \S --> 
+
+<decoder name="nginx-lab"> 
+
+<program_name>nginx</program_name> 
+
+<prematch>^[0-9]+.[0-9]+.[0-9]+.[0-9]+</prematch> 
+
+</decoder> 
+
+ 
+
+ 
+
+<decoder name="nginx-lab-access"> 
+
+<parent>nginx-lab</parent> 
+
+<regex>^([0-9.]+) - ([^ ]+) [^ ]+ [^ ]+ "(\w+) ([^ ]+) HTTP[^ ]+" ([0-9]+) ([0-9]+)</regex> 
+
+<order>srcip, srcuser, http_method, url, http_response_code, bytes</order> 
+
+</decoder> 
