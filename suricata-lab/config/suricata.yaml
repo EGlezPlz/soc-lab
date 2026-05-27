@@ -1,0 +1,77 @@
+%YAML 1.1
+---
+vars:
+  address-groups:
+    HOME_NET: "[192.168.0.0/16,172.16.0.0/12,10.0.0.0/8]"
+    EXTERNAL_NET: "!$HOME_NET"
+
+af-packet:
+  - interface: eth1
+    cluster-id: 99
+    cluster-type: cluster_flow
+    defrag: yes
+
+outputs:
+  - eve-log:
+      enabled: yes
+      filename: /var/log/suricata/eve.json
+      types:
+        - alert:
+            payload: yes
+            http-body: yes
+        - dns:
+            query: yes
+            answer: yes
+        - http:
+            extended: yes
+        - tls:
+            extended: yes
+        - flow
+  - fast:
+      enabled: yes
+      filename: /var/log/suricata/fast.log
+      
+default-rule-path: /etc/suricata/rules
+rule-files:
+  - /etc/suricata/rules/local.rules
+
+default-log-dir: /var/log/suricata/
+
+stats:
+  enabled: yes
+  interval: 30
+
+vars:
+  address-groups:
+    HTTP_SERVERS: ""
+    SMTP_SERVERS: ""
+    SQL_SERVERS: ""
+  port-groups:
+    HTTP_PORTS: "80"
+    ORACLE_PORTS: 1521
+    SSH_PORTS: 22
+    DNP3_PORTS: 20000
+    MODBUS_PORTS: 502
+    FILE_DATA_PORTS: "[$HTTP_PORTS,110,143]"
+    FTP_PORTS: 21
+    GENEVE_PORTS: 6081
+    VXLAN_PORTS: 4789
+    TEREDO_PORTS: 3544
+
+vars:
+  address-groups:
+    HTTP_SERVERS: "$HOME_NET"
+    SMTP_SERVERS: "$HOME_NET"
+    SQL_SERVERS: "$HOME_NET"
+  port-groups:
+    HTTP_PORTS: "80"
+    SHELLCODE_PORTS: "!80"
+    ORACLE_PORTS: 1521
+    SSH_PORTS: 22
+    DNP3_PORTS: 20000
+    MODBUS_PORTS: 502
+    FILE_DATA_PORTS: "[$HTTP_PORTS,110,143]"
+    FTP_PORTS: 21
+    GENEVE_PORTS: 6081
+    VXLAN_PORTS: 4789
+    TEREDO_PORTS: 3544
