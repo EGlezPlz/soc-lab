@@ -1,0 +1,54 @@
+# Entornos virtuales
+venv/
+venv-misp/
+mi-entorno/
+.venv/
+**/venv/
+**/.venv/
+
+# Dependencias Node
+node_modules/
+frontend/dist/
+
+# Credenciales — NUNCA al repo
+backend/.env
+**/.env
+!**/.env.example
+
+# Logs y datos en tiempo real
+alerts/
+suricata-lab/logs/
+suricata-lab/pcap/
+soc-lab/cyberscraper/data/
+soc-lab/data/
+*.log
+
+# Certificados generados
+config/wazuh_indexer_ssl_certs/
+**/*.pem
+**/*.key
+**/*.crt
+**/*.p12
+
+# Python
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+
+# Personal
+lab-scraping/
+snap/
+misp-lab/prueba.py
+misp-lab/venv-misp/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
